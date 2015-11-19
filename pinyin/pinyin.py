@@ -2,15 +2,7 @@ __all__ = ['get', 'get_pinyin', 'get_initial']
 
 import os
 
-# init pinyin dict
-pinyin_dict = {}
-dat = os.path.join(os.path.dirname(__file__), "Mandarin.dat")
-with open(dat) as f:
-    for line in f:
-        k, v = line.strip().split('\t')
-        pinyin_dict[k] = v.lower().split(" ")[0][:-1]
-
-
+from .Mandarin import pinyin_dict
 from ._compat import u
 
 
@@ -20,7 +12,7 @@ def _pinyin_generator(chars):
     Chars must be unicode list.
     """
     for char in chars:
-        key = "%X" % ord(char)
+        key = ord(char)
         yield pinyin_dict.get(key, char)
 
 
